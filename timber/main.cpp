@@ -11,6 +11,9 @@
 #define X 1920
 #define Y 1080
 
+using namespace std;
+using namespace sf;
+
 int main()
 {
     VideoMode vm(X, Y);
@@ -44,45 +47,40 @@ int main()
     bool SelectMenu = false;
     bool PlayGame = false;
     bool Title = true;
+    bool run = true;
     //SceneManager sceneManager;
+    //sceneManager.Init();
 
-    while ( window.isOpen() )
+    while ( run )
     {
-        /*Time dt = clock.restart();
-        Event ev;*/
+        //sceneManager.Init();
+        Time dt = clock.restart();
+        Event ev;
 
         //Title Scene
         while ( Title )
         {
-            cout << "title" << endl;
-            Time dt = clock.restart();
-            Event ev;
-
-            InputManager::ClearInput();
             while ( window.pollEvent(ev) )
             {
                 InputManager::UpdateInput(ev);
             }
-            //mainTitle()
-            //cout << "Title" << endl;
-            
-            if ( InputManager::GetKeyDown(Keyboard::Key::Return))
-            {
 
+            if ( InputManager::GetKeyDown(Keyboard::Key::Return) )
+            {
                 SelectMenu = true;
                 Title = false;
                 break;
             }
-            if ( InputManager::GetKeyDown(Keyboard::Key::Escape))
+            if ( InputManager::GetKeyDown(Keyboard::Key::Escape) )
             {
                 window.close();
                 break;
             }
-           
+
             float deltaTime = dt.asSeconds();
 
             //Update
-            for ( auto go  : gameObjectList )
+            for ( auto go : gameObjectList )
             {
 
                 go->Update(deltaTime);
@@ -109,7 +107,6 @@ int main()
             while ( window.pollEvent(ev) )
             {
                 InputManager::UpdateInput(ev);
-
             }
 
             if ( InputManager::GetKeyDown(Keyboard::Key::Escape))
@@ -149,6 +146,7 @@ int main()
             window.draw(menuText);
             window.display();
         }
+
         //Game Scene
         //while ( PlayGame )
         //{
@@ -165,11 +163,11 @@ int main()
         //    //Game()
         //}       
     }
-    for ( auto go : gameObjectList )
+    /*for ( auto go : gameObjectList )
     {
         go->Release();
         delete go;
     }
-    gameObjectList.clear();
+    gameObjectList.clear();*/
     return 0;
 }

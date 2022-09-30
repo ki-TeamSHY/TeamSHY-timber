@@ -1,15 +1,21 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
+#include <list>
 #include "InputManager.h"
 #include "Utils.h"
 #include "SpriteGameObject.h"
 #include "ResourceManager.h"
-#include "Singleton.h"
+
+
+#define X 1920
+#define Y 1080
 
 using namespace std;
 using namespace sf;
 
-enum class SceneList
+enum class SceneEnum
 {
 	Main,
 	Menu,
@@ -17,18 +23,30 @@ enum class SceneList
 	End,
 };
 
-class SceneManager : public Singleton<SceneManager>
+class SceneManager 
 {
 private:
-	SceneList sceneList;
+	list<SpriteGameObject*> gameObjectList;
+	SceneEnum scene;
+	VideoMode vm;
+	RenderWindow window;
+	Vector2u windowSize;
+	Time dt;// = clock.restart();
+	Event ev;
+	Clock clock;
+	bool SelectMenu;
+	bool PlayGame;
+	bool MTState;
 public:
 	SceneManager();
-	virtual ~SceneManager()
-	{
-		Destroy();
-	}
 
-	void SelectScene(SceneList state);
+	virtual ~SceneManager()	{}
+
+	void Init();
+
+	bool GetTitleStatus();
+
+	void SelectScene(SceneEnum state);
 
 };
 
