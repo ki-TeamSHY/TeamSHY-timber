@@ -1,53 +1,141 @@
 ﻿#include <SFML/Graphics.hpp>
+#include <list>
+#include <iostream>
 #include "ResourceManager.h"
 #include "SpriteGameObject.h"
-#include <list>
 #include "Player.h"
 #include "InputManager.h"
 
-
+using namespace std;
 using namespace sf;
 
 int main()
 {
     VideoMode vm(1920, 1080);
     RenderWindow window(vm, "timber", Style::Default);
-    std::list<SpriteGameObject*> gameObjectList;
+    Vector2u windowSize = window.getSize();
+
+    list<SpriteGameObject*> gameObjectList;
     gameObjectList.push_back(new SpriteGameObject(RMI->GetTexture("graphics/background.png")));
 
-    Player* player1 = new Player(RMI->GetTexture("graphics/player_green.png"),1);
-    gameObjectList.push_back(player1);
-    Player* player2 = new Player(RMI->GetTexture("graphics/player_red.png"),2);
-    gameObjectList.push_back(player2);
-    
+    //Font
+    Font font;
+    font.loadFromFile("fonts/KOMIKAP_.ttf");
+
+    //Text
+    Text messageText;
+    messageText.setFont(font);
+    messageText.setCharacterSize(75);
+    messageText.setFillColor(Color::White);
+    messageText.setString("Press Enter to start!");
+    Utils::SetOrigin(messageText, Origins::MC);
+    Vector2u size = window.getSize();
+    messageText.setPosition(size.x * 0.5f, size.y * 0.5f);
+    //
+    //Text
+    Text menuText;
+    menuText.setFont(font);
+    menuText.setCharacterSize(75);
+    menuText.setFillColor(Color::Yellow);
+    menuText.setString("Menu");
+    Utils::SetOrigin(menuText, Origins::MC);
+    menuText.setPosition(size.x * 0.5f, size.y * 0.5f);
+    //
+
     for (auto i : gameObjectList)
     {
         i->Init();
     }
-    Clock clock;
 
-    while (true)
+    Clock clock;
+    bool SelectMenu = true;
+    bool PlayGame = false;
+
+    while ( window.isOpen() )
     {
         Time dt = clock.restart(); //이전 업데이트 시간과 현재 업데이트 시간 차이 기록
-
         Event ev;
+
         InputManager::ClearInput();
+
         while (window.pollEvent(ev))
         {
             InputManager::UpdateInput(ev);
         }
+
+        if ( Keyboard::isKeyPressed(Keyboard::Escape) )
+        {
+            window.close(); 
+            continue;
+        }
+        if ( Keyboard::isKeyPressed(Keyboard::Return) ) 
+        {
+            if ( SelectMenu )
+            {
+                //window.draw(menuText);
+                //Menu Select
+                /*while ( !PlayGame )
+                {
+                    cout << "menu" << endl;
+                    window.draw(menuText);
+                    if ( Keyboard::isKeyPressed(Keyboard::Escape) )
+                    {
+                        break;
+                    }
+                    if ( Keyboard::isKeyPressed(Keyboard::Return) )
+                    {
+                        PlayGame = true;
+                    }
+                } */
+            }
+        }
+        
+        //Game Play
+        //while ( PlayGame )
+        //{
+        //    if ( Keyboard::isKeyPressed(Keyboard::Escape) )
+        //    {
+        //        PlayGame = false;
+        //        break;
+        //    }
+        //    //Player
+        //    Player* player1 = new Player(RMI->GetTexture("graphics/player_green.png"), 1);
+        //    gameObjectList.push_back(player1);
+        //    Player* player2 = new Player(RMI->GetTexture("graphics/player_red.png"), 2);
+        //    gameObjectList.push_back(player2);
+        //    //
+        //    
+        //}
+
         float deltaTime = dt.asSeconds(); //isPause ? 0.f : dt.asSeconds();
+
         for (auto i : gameObjectList)
         {
             i->Update(deltaTime);
         }
+
+        window.clear();
         for (auto i : gameObjectList)
         {
             i->Draw(window);
         }
+
+       /* if ( !SelectMenu )
+        {
+            window.draw(menuText);
+        }*/
+        if ( SelectMenu )
+        {
+            window.draw(messageText);
+        }
         window.display();
     }
-    
+    for ( auto go : gameObjectList )
+    {
+        go->Release();
+        delete go;
+    }
+    gameObjectList.clear();
     return 0;
 }
 
