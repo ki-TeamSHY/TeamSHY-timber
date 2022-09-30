@@ -5,6 +5,7 @@
 #include "SpriteGameObject.h"
 #include "Player.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 
 using namespace std;
 using namespace sf;
@@ -50,7 +51,7 @@ int main()
     Clock clock;
     bool SelectMenu = true;
     bool PlayGame = false;
-
+    SceneManager sceneManager;
     while ( window.isOpen() )
     {
         Time dt = clock.restart(); //이전 업데이트 시간과 현재 업데이트 시간 차이 기록
@@ -70,28 +71,13 @@ int main()
         }
         if ( Keyboard::isKeyPressed(Keyboard::Return) ) 
         {
-            if ( SelectMenu )
-            {
-                //window.draw(menuText);
-                //Menu Select
-                /*while ( !PlayGame )
-                {
-                    cout << "menu" << endl;
-                    window.draw(menuText);
-                    if ( Keyboard::isKeyPressed(Keyboard::Escape) )
-                    {
-                        break;
-                    }
-                    if ( Keyboard::isKeyPressed(Keyboard::Return) )
-                    {
-                        PlayGame = true;
-                    }
-                } */
-            }
+            SelectMenu = false;
+           
+            sceneManager.SelectGameMode();
         }
         
         //Game Play
-        //while ( PlayGame )
+        //if ( PlayGame )
         //{
         //    if ( Keyboard::isKeyPressed(Keyboard::Escape) )
         //    {
@@ -103,9 +89,7 @@ int main()
         //    gameObjectList.push_back(player1);
         //    Player* player2 = new Player(RMI->GetTexture("graphics/player_red.png"), 2);
         //    gameObjectList.push_back(player2);
-        //    //
-        //    
-        //}
+        //} 
 
         float deltaTime = dt.asSeconds(); //isPause ? 0.f : dt.asSeconds();
 
@@ -115,15 +99,15 @@ int main()
         }
 
         window.clear();
+
         for (auto i : gameObjectList)
         {
             i->Draw(window);
         }
-
-       /* if ( !SelectMenu )
+        if ( !SelectMenu )
         {
             window.draw(menuText);
-        }*/
+        }
         if ( SelectMenu )
         {
             window.draw(messageText);
