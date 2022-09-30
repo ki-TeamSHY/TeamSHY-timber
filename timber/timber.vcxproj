@@ -149,12 +149,19 @@
     <ClCompile Include="..\..\TeamSHY-timber\timber\ResourceManager.cpp" />
     <ClCompile Include="..\..\TeamSHY-timber\timber\SpriteGameObject.cpp" />
     <ClCompile Include="..\..\TeamSHY-timber\timber\Utils.cpp" />
+    <ClCompile Include="CreateScene.cpp" />
+    <ClCompile Include="IBehavior.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\TeamSHY-timber\timber\InputManager.h" />
@@ -163,11 +170,18 @@
     <ClInclude Include="..\..\TeamSHY-timber\timber\Singleton.h" />
     <ClInclude Include="..\..\TeamSHY-timber\timber\SpriteGameObject.h" />
     <ClInclude Include="..\..\TeamSHY-timber\timber\Utils.h" />
+    <ClInclude Include="CreateScene.h" />
+    <ClInclude Include="IBehavior.h" />
+    <ClInclude Include="MainScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player2.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
