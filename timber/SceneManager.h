@@ -5,19 +5,22 @@
 #include "SpriteGameObject.h"
 #include "ResourceManager.h"
 #include "Singleton.h"
-#include "Scene.h"
-#include "CreateScene.h"
 
 using namespace std;
 using namespace sf;
 
+enum class SceneList
+{
+	Main,
+	Menu,
+	Game,
+	End,
+};
+
 class SceneManager : public Singleton<SceneManager>
 {
 private:
-	Scene* scene;
-	VideoMode vm;
-	RenderWindow window;
-	Vector2u windowSize;
+	SceneList sceneList;
 public:
 	SceneManager();
 	virtual ~SceneManager()

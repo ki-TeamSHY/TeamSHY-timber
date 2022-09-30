@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "SpriteGameObject.h"
 #include "ResourceManager.h"
+#include "SceneManager.h"
 
 #define X 1920
 #define Y 1080
@@ -43,6 +44,7 @@ int main()
     bool SelectMenu = false;
     bool PlayGame = false;
     bool Title = true;
+    //SceneManager sceneManager;
 
     while ( window.isOpen() )
     {
@@ -63,18 +65,20 @@ int main()
             }
             //mainTitle()
             //cout << "Title" << endl;
-            if ( Keyboard::isKeyPressed(Keyboard::Escape) )
-            {
-                window.close();
-                break;
-            }
-            if ( Keyboard::isKeyPressed(Keyboard::Return) )
+            
+            if ( InputManager::GetKeyDown(Keyboard::Key::Return))
             {
 
                 SelectMenu = true;
                 Title = false;
                 break;
             }
+            if ( InputManager::GetKeyDown(Keyboard::Key::Escape))
+            {
+                window.close();
+                break;
+            }
+           
             float deltaTime = dt.asSeconds();
 
             //Update
@@ -108,10 +112,18 @@ int main()
 
             }
 
-            if ( Keyboard::isKeyPressed(Keyboard::Escape) )
+            if ( InputManager::GetKeyDown(Keyboard::Key::Escape))
             {
                 SelectMenu = false;
                 Title = true;
+            }
+            if ( InputManager::GetKeyDown(Keyboard::Key::Up))
+            {
+                
+            }
+            if ( InputManager::GetKeyDown(Keyboard::Key::Down))
+            {
+                
             }
             //Menu()
             /*if ( Keyboard::isKeyPressed(Keyboard::Return) )
